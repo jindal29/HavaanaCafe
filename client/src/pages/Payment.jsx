@@ -46,7 +46,7 @@ export default function Payment() {
 
     try {
       // Create new order on backend
-      const result = await axios.post("http://localhost:5000/api/payment/create-order", {
+      const result = await axios.post("http://localhost:5001/api/payment/create-order", {
         amount: totalAmount,
       });
 
@@ -70,7 +70,7 @@ export default function Payment() {
         handler: async function (response) {
           try {
             // Send back to server to authenticate the signature
-            const verifyResult = await axios.post("http://localhost:5000/api/payment/verify", {
+            const verifyResult = await axios.post("http://localhost:5001/api/payment/verify", {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,

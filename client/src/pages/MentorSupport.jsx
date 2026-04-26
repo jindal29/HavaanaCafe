@@ -12,7 +12,7 @@ export default function MentorSupport() {
 
   useEffect(() => {
     // Connect to Backend WebSocket
-    const newSocket = io('http://localhost:5000');
+    const newSocket = io('http://localhost:5001');
     setSocket(newSocket);
 
     newSocket.on('mentor_status', (data) => {

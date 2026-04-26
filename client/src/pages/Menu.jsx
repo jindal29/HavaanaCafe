@@ -87,7 +87,7 @@ export default function Menu() {
   useEffect(() => {
     const fetchMenu = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/menu');
+        const { data } = await axios.get('http://localhost:5001/api/menu');
         if (data && data.length > 0) {
           setItems(data);
         } else {

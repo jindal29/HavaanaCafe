@@ -1,5 +1,7 @@
 import { Suspense, lazy, Component } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { AuthProvider } from './context/AuthContext';
 import Layout from './components/layout/Layout';
 import PremiumLoader from './components/ui/PremiumLoader';
 
@@ -38,26 +40,36 @@ const Contact = lazy(() => import('./pages/Contact'));
 const OrderIntegration = lazy(() => import('./pages/OrderIntegration'));
 const Payment = lazy(() => import('./pages/Payment'));
 const MentorSupport = lazy(() => import('./pages/MentorSupport'));
+const Login = lazy(() => import('./pages/Login'));
+const Signup = lazy(() => import('./pages/Signup'));
 
 function App() {
+  const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || 'fallback_client_id';
+
   return (
-    <Router>
-      <ErrorBoundary>
-        <Suspense fallback={<PremiumLoader />}>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="menu" element={<Menu />} />
-            <Route path="offers" element={<Offers />} />
-            <Route path="contact" element={<Contact />} />
-            <Route path="order" element={<OrderIntegration />} />
-            <Route path="payment" element={<Payment />} />
-            <Route path="mentor" element={<MentorSupport />} />
-          </Route>
-        </Routes>
-      </Suspense>
-      </ErrorBoundary>
-    </Router>
+    <GoogleOAuthProvider clientId={googleClientId}>
+      <AuthProvider>
+        <Router>
+          <ErrorBoundary>
+            <Suspense fallback={<PremiumLoader />}>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Home />} />
+                <Route path="menu" element={<Menu />} />
+                <Route path="offers" element={<Offers />} />
+                <Route path="contact" element={<Contact />} />
+                <Route path="order" element={<OrderIntegration />} />
+                <Route path="payment" element={<Payment />} />
+                <Route path="mentor" element={<MentorSupport />} />
+                <Route path="login" element={<Login />} />
+                <Route path="signup" element={<Signup />} />
+              </Route>
+            </Routes>
+          </Suspense>
+          </ErrorBoundary>
+        </Router>
+      </AuthProvider>
+    </GoogleOAuthProvider>
   );
 }
 

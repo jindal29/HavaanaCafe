@@ -55,7 +55,7 @@ export default function Offers() {
   useEffect(() => {
     const fetchOffers = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/offers');
+        const { data } = await axios.get('http://localhost:5001/api/offers');
         if (data && data.length > 0) {
           setOffers(data);
         } else {

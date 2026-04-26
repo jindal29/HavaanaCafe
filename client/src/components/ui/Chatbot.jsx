@@ -53,7 +53,7 @@ export default function Chatbot() {
     setIsTyping(true);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/chatbot', { message: text });
+      const response = await axios.post('http://localhost:5001/api/chatbot', { message: text });
       // Add bot response to UI
       setMessages(prev => [...prev, { sender: 'bot', text: response.data.reply }]);
     } catch (error) {
